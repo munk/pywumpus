@@ -38,7 +38,9 @@ def generate_hazard_locations():
 class Lair(object):
     def __init__(self):
         self.lair_map = lair_map
-        self.bat1, self.bat2, self.pit1, self.pit2, self.wumpus = generate_hazard_locations()
+        bat1, bat2, pit1, pit2, self.wumpus = generate_hazard_locations()
+        self.bats = [bat1, bat2]
+        self.pits = [pit1, pit2]
         self.player = Player()
 
     def _get_neighbors(self, room):
@@ -50,4 +52,11 @@ class Lair(object):
     def move_player(self, choice):
         current_location = self.lair_map[self.player.location]
         self.player.location = current_location[choice]
+
+        if self.player.location in self.pits:
+            raise Exception("You fell down a pit")
+
+        if self.player.location == self.wumpus:
+            raise Exception("The wumpus ate you")
+            
 
