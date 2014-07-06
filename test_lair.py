@@ -8,6 +8,11 @@ def test_generate_hazard_locations():
 def test_generate_hazard_locations_no_dups():
     locs = lair.generate_hazard_locations()
     assert len(set(locs)) == 5
+
+def test_move_player():
+    l = lair.Lair()
+    l.move_player(2)
+    assert l.player.location == 7, l.player.location
     
 def test_generate_hazard_locations_edgecase():
     f = lair.randint
